@@ -6,7 +6,7 @@ from .shortner import shortner
 
 
 # Create your views here.
-def home(token):
+def home(request, token):
     long_url = short_urls.objects.filter(short_url=token)[0]
     return redirect(long_url.long_url, )
 
@@ -16,11 +16,11 @@ def make(request):
     a = ""
     if request.method == 'POST':
         if form.is_valid():
-            new_url = form.save(commit=False)
+            NewUrl = form.save(commit=False)
             a = shortner().issue_token()
-            new_url.short_url = a
+            NewUrl.short_url = a
             print(a)
-            new_url.save()
+            NewUrl.save()
         else:
             form = UrlForm()
             a = "Invalid Url"
